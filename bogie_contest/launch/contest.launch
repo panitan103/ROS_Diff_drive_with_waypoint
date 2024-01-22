@@ -1,0 +1,14 @@
+<launch>
+
+    <arg name="waypoints" default="[[0.0,0.0,0.0],[-1.96594953537,2.46366333961,0.0],[0.582977771759,-2.29695940018,0.0]]" />
+    <arg name="loop" default="false"/>
+
+    <node name="contest" pkg="bogie_contest" type="demo.py" output="screen">
+        <param name="waypoints" value="$(arg waypoints)" />
+        <param name="loop" value="$(arg loop)" />
+
+    </node>
+    <node name="contest_led" pkg="bogie_contest" type="led.py" output="screen"/>
+
+       
+</launch>

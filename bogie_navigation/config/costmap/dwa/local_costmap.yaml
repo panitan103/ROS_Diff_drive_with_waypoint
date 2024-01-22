@@ -1,0 +1,4 @@
+plugins:
+  - {name: obstacles_laser,           type: "costmap_2d::ObstacleLayer"}
+  #- {name: obstacles_pointcloud,           type: "costmap_2d::ObstacleLayer"}
+  - {name: inflation_l,                 type: "costmap_2d::InflationLayer"}

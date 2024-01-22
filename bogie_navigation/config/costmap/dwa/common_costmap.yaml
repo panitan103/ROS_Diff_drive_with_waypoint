@@ -1,0 +1,85 @@
+### move_base common param
+global_frame: map
+robot_base_frame: base_footprint
+
+planner_frequency: 3
+controller_frequency: 5.0
+
+planner_patience: 20.0
+controller_patience: 5.0
+
+max_planning_retries: -1
+
+conservative_reset_dist: 0.2
+
+recovery_behavior_enabled: True
+clearing_rotation_allowed: True
+
+# shutdown_costmaps: False
+
+oscillation_timeout: 0.0
+oscillation_distance: 0.5
+
+make_plan_clear_costmap: True
+make_plan_add_unreachable_goal: True
+
+### move_base Costmap2D param
+
+transform_tolerance: 2
+update_frequency: 5
+publish_frequency: 5
+
+static_map: True
+width: 10
+height: 10
+resolution: 0.05
+origin_x: 0.0
+origin_y: 0.0
+
+footprint: [[-0.155, -0.155], [-0.155, 0.155], [0.155, 0.155], [0.155, -0.155]]
+# robot_radius: 0.155
+footprint_padding: 0.01
+
+rolling_window: True
+
+
+### Layer definitions
+static:
+    map_topic: /map
+    first_map_only: False
+    subscribe_to_updates: True
+    track_unknown_space: true
+
+obstacles_laser:
+    obstacle_range: 2 #default 3
+    raytrace_range: 10 #default 4
+    observation_sources: laser
+    laser: {topic: /scan,
+            # sensor_frame: base_scan ,
+            # observation_persistence: 0.0,
+            # expected_update_rate: 0.0, 
+            data_type: LaserScan,
+            # min_obstacle_height: 0.0,
+            # max_obstacle_height: 2.0, 
+            inf_is_valid: False,
+            clearing: False, 
+            marking: True, 
+    }
+
+# obstacles_pointcloud:
+#     observation_sources: point_cloud_sensor
+#     point_cloud_sensor: {sensor_frame: map, data_type: PointCloud2, topic: /camera/depth/color/points , marking: true, clearing: true}
+#     max_obstacle_height: 0.35
+#     min_obstacle_height: 0.1
+    
+inflation_g:
+    enabled: True
+    cost_scaling_factor: 3
+    inflation_radius: 0.05 #default 0.055
+    inflate_unknown: False
+    
+inflation_l:
+    enabled: True
+    cost_scaling_factor: 3
+    inflation_radius: 0.05 #default 0.055
+    inflate_unknown: False

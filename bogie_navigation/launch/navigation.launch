@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="initial_pose_x" default="-2.0"/>
+    <arg name="initial_pose_y" default="-0.5"/>
+    <arg name="initial_pose_a" default="0.0"/>
+
+    <arg name="map_file" default="$(find bogie_navigation)/map/map.yaml"/>
+    <arg name="planner" default="teb"/>
+    <arg name="turtle_sim" default="false"/>
+    <group if="$(arg turtle_sim)">
+        <!-- <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" /> -->
+        <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0 0 0 0 base_footprint base_link 100" />
+        <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_odom" args="0 0 0 0 0 0 base_footprint base_scan 100" />
+
+    </group>
+
+
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+
+    <include file="$(find bogie_navigation)/launch/amcl.launch">
+        <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
+        <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
+        <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
+    </include>
+
+
+    <include file="$(find bogie_navigation)/launch/move_base.launch" > 
+        <arg name="planner" value="$(arg planner)"/>
+    </include>
+    <group if="$(eval planner == 'dwa')">
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bogie_navigation)/config/rviz/nav_dwa_config.rviz"/>
+
+    </group>
+    <group if="$(eval planner == 'teb')">
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bogie_navigation)/config/rviz/nav_teb_config.rviz"/>
+    </group>
+</launch>   

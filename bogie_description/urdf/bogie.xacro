@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<robot name="bogie" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find bogie_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find bogie_description)/urdf/bogie.trans" />
+<xacro:include filename="$(find bogie_description)/urdf/bogie.gazebo" />
+
+<link name="base_footprint"/>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.023593829702523186 2.7513944896831823e-06 0.1912441485307813" rpy="0 0 0"/>
+    <mass value="15.686014886500574"/>
+    <inertia ixx="0.331175" iyy="0.376785" izz="0.327602" ixy="-5e-06" iyz="-2e-06" ixz="0.003281"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wheel">
+  <inertial>
+    <origin xyz="1.0017341003671332e-17 -0.0050000000000000044 6.938893903907228e-18" rpy="0 0 0"/>
+    <mass value="0.44544838584790514"/>
+    <inertia ixx="0.000205" iyy="0.000402" izz="0.000205" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 0.13 -0.0425" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/right_wheel.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 0.13 -0.0425" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/right_wheel.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wheel">
+  <inertial>
+    <origin xyz="2.6999999016951607e-08 0.004999994999997953 2.0816681711721685e-17" rpy="0 0 0"/>
+    <mass value="0.44544838584790525"/>
+    <inertia ixx="0.000205" iyy="0.000402" izz="0.000205" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.13 -0.0425" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/left_wheel.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.13 -0.0425" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/left_wheel.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="imu_link">
+  <inertial>
+    <origin xyz="0.0 0.0 -0.0025000000000000022" rpy="0 0 0"/>
+    <mass value="0.0157"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.2975" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/imu_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.2975" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/imu_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="base_laser_link">
+  <inertial>
+    <origin xyz="0.0 0.0 0.009750000000000036" rpy="0 0 0"/>
+    <mass value="0.5891016369241163"/>
+    <inertia ixx="0.000199" iyy="0.000199" izz="0.000361" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.344" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/base_laser_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.344" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bogie_description/meshes/base_laser_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="base_link_joint" type="fixed">
+  <origin xyz="0 0 0" rpy="0 0 0.0" />
+  <parent link="base_footprint" />
+  <child link="base_link" />
+  </joint>
+
+<joint name="Revolute 1" type="continuous">
+  <origin xyz="0.0 -0.13 0.0425" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_wheel"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+</joint>
+
+<joint name="Revolute 2" type="continuous">
+  <origin xyz="0.0 0.13 0.0425" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_wheel"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Rigid 3" type="fixed">
+  <origin xyz="0.0 0.0 0.2975" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="imu_link"/>
+</joint>
+
+<joint name="Rigid 4" type="fixed">
+  <origin xyz="0.0 0.0 0.344" rpy="0 0 3.1414"/>
+  <parent link="base_link"/>
+  <child link="base_laser_link"/>
+</joint>
+
+</robot>
