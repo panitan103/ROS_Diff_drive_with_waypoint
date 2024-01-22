@@ -1,0 +1,7 @@
+additional requirement
+- rplidar_ros https://github.com/Slamtec/rplidar_ros.git
+
+for turtlebot simulation
+- turtlebot3 https://github.com/ROBOTIS-GIT/turtlebot3.git
+- turtlebot3_msgs https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+- turtlebot3_simulations https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
