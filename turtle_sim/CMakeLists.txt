@@ -8,9 +8,9 @@ project(turtle_sim)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  turtlebot3
   turtlebot3_msgs
-  turtlebot3_simulations
+  turtlebot3_gazebo
+  turtlebot3_description
 )
 
 ## System dependencies are found with CMake's conventions
