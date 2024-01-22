@@ -62,6 +62,10 @@
   <build_export_depend>robot_pose_ekf</build_export_depend>
   <exec_depend>robot_pose_ekf</exec_depend>
 
+  <build_depend>rplidar_ros</build_depend>
+  <build_export_depend>rplidar_ros</build_export_depend>
+  <exec_depend>rplidar_ros</exec_depend>
+
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
